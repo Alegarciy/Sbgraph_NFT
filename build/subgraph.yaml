@@ -1,14 +1,13 @@
 specVersion: 0.0.2
 description: Uniswap V3 Positions NFT-V1 for Polygon
-# repository: https://github.com/graphprotocol/example-subgraph
 schema:
-  file: ./schema.graphql
+  file: schema.graphql
 dataSources:
   - kind: ethereum/contract
     name: NFT-V1
     network: matic
     source:
-      address: '0xc36442b4a4522e871399cd717abdd847ab11fe88'
+      address: "0xc36442b4a4522e871399cd717abdd847ab11fe88"
       abi: Contract
       startBlock: 22760586
     mapping:
@@ -19,8 +18,8 @@ dataSources:
         - Metadata
       abis:
         - name: Contract
-          file: ./abis/Contract.json
+          file: NFT-V1/abis/Contract.json
       eventHandlers:
         - event: IncreaseLiquidity(indexed uint256,uint128,uint256,uint256)
           handler: handleIncreaseLiquidity
-      file: ./src/mapping.ts
+      file: NFT-V1/NFT-V1.wasm

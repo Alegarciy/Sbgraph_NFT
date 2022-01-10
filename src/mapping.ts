@@ -1,22 +1,13 @@
-import { NewGravatar, UpdatedGravatar } from '../generated/Gravity/Gravity'
-import { Gravatar } from '../generated/schema'
 
-export function handleNewGravatar(event: NewGravatar): void {
-  let gravatar = new Gravatar(event.params.id.toHex())
-  gravatar.owner = event.params.owner
-  gravatar.displayName = event.params.displayName
-  gravatar.imageUrl = event.params.imageUrl
-  gravatar.save()
-}
+import { BigInt } from '@graphprotocol/graph-ts'
+import { Metadata } from "../generated/schema"
+import {IncreaseLiquidity} from "../generated/NFT-V1/Contract";
 
-export function handleUpdatedGravatar(event: UpdatedGravatar): void {
-  let id = event.params.id.toHex()
-  let gravatar = Gravatar.load(id)
-  if (gravatar == null) {
-    gravatar = new Gravatar(id)
+export function handleIncreaseLiquidity(event: IncreaseLiquidity): void{
+  let entity = Metadata.load('0')
+  if (entity == null) {
+    entity = new Metadata('0')
   }
-  gravatar.owner = event.params.owner
-  gravatar.displayName = event.params.displayName
-  gravatar.imageUrl = event.params.imageUrl
-  gravatar.save()
+  entity.value = BigInt.fromI32(event.params.tokenId.toI32())
+  entity.save()
 }
